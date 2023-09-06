@@ -1,4 +1,5 @@
 import scrapy
+from tqdm import tqdm
 
 from pep_parse.items import PepParseItem
 
@@ -10,7 +11,7 @@ class PepSpider(scrapy.Spider):
 
     def parse(self, response):
         anchors = response.css("table.pep-zero-table").xpath(".//a")
-        for anchor in anchors:
+        for anchor in tqdm(anchors):
             href = anchor.xpath("./@href").get()
             if href:
                 url = response.urljoin(href)

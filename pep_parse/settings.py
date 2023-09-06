@@ -1,3 +1,7 @@
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
 BOT_NAME = "pep_parse"
 
 SPIDER_MODULES = ["pep_parse.spiders"]
@@ -16,3 +20,5 @@ FEEDS = {
 ITEM_PIPELINES = {
     "pep_parse.pipelines.PepParsePipeline": 300,
 }
+
+LOG_LEVEL = "INFO"

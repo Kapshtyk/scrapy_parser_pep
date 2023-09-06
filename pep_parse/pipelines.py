@@ -2,7 +2,9 @@ import csv
 from datetime import datetime
 from pathlib import Path
 
-from constants import BASE_DIR
+from scrapy.exceptions import DropItem
+
+from .settings import BASE_DIR
 
 
 class PepParsePipeline:
@@ -10,6 +12,8 @@ class PepParsePipeline:
         self.statuses = {}
 
     def process_item(self, item, spider):
+        if item.get("status") is None:
+            raise DropItem(f"No status for the item: {item}")
         self.statuses[item["status"]] = (
             self.statuses.get(item["status"], 0) + 1
         )
